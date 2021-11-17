@@ -151,8 +151,8 @@ public class DruidDataSourceFactory implements ObjectFactory {
     }
 
     @SuppressWarnings({"deprecation", "rawtypes"})
-    public static void config(DruidDataSource dataSource, Map<?, ?> properties) throws SQLException {
-        String value = null;
+    public static void config(DruidDataSource dataSource, Map<?, ?> properties) throws SQLException {        
+    	String value = null;
 
         value = (String) properties.get(PROP_DEFAULTAUTOCOMMIT);
         if (value != null) {

@@ -176,6 +176,7 @@ public class DruidDataSource extends DruidAbstractDataSource implements DruidDat
     }
 
     public void configFromPropety(Properties properties) {
+    	
         {
             String property = properties.getProperty("druid.name");
             if (property != null) {
