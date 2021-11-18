@@ -1,3 +1,18 @@
+/*
+ * Copyright 1999-2017 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.alibaba.druid.support.venus.util;
 
 import java.io.BufferedReader;
@@ -8,14 +23,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.alibaba.druid.support.logging.Log;
+import com.alibaba.druid.support.logging.LogFactory;
 
 public class VenusHttpUtils {
 	private static final Integer READ_TIMEOUT = 5000;
 	private static final Integer CONNECT_TIMEOUT = 10000;
 	
-	private static Logger logger = LoggerFactory.getLogger(VenusHttpUtils.class);
+	private final static Log LOG = LogFactory.getLog(VenusHttpUtils.class);
 	
 	public static String sendHttpGet(String url, String param) {
 		HttpURLConnection connection = null;
@@ -47,12 +62,12 @@ public class VenusHttpUtils {
 				
 				return sbf.toString();
             } else {
-            	logger.error("发送http/get请求失败,{}/{}" , connection.getResponseCode() , urlNameString);
+            	LOG.error("发送http/get请求失败," + connection.getResponseCode()  + "/" + urlNameString);
             }
             
             return null;
         } catch (Exception e) {
-        	logger.error("发送http/get请求异常,{}" , e.getMessage());
+        	LOG.error("发送http/get请求异常" + "/" + e.getMessage());
         	
             return null;
         } finally {
@@ -68,7 +83,7 @@ public class VenusHttpUtils {
 	        		br.close();
 	        	}
         	} catch (Exception e) {
-        		logger.error("发送http/get关闭流异常,{}" , e.getMessage());
+        		LOG.error("发送http/get关闭流异常"  + "/" + e.getMessage());
         	}
         }
     }
@@ -105,12 +120,12 @@ public class VenusHttpUtils {
                 
                 return sb.toString();
             } else {
-            	logger.error("调用http/post失败 {}" , httpRspCode);
+            	LOG.error("调用http/post失败" + "/" + httpRspCode);
             	
             	return null;
             }
         } catch (Exception e) {
-            logger.error("调用http/post失败 {}" , e.getMessage());
+        	LOG.error("调用http/post失败" + "/" + e.getMessage());
             
             return null;
         } finally {
@@ -118,7 +133,7 @@ public class VenusHttpUtils {
         		try {
 					os.close();
 				} catch (IOException e) {
-					logger.error("调用http/post失败 {}" , e.getMessage());
+					LOG.error("调用http/post失败"  + "/" + e.getMessage());
 				}
         	}
         }

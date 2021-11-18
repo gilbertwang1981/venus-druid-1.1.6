@@ -1034,8 +1034,6 @@ public abstract class DruidAbstractDataSource extends WrapperAdapter implements 
     }
 
     public void setUsername(String username) {
-    	LOG.info("设置用户名:" + username);
-    	
         if (StringUtils.equals(this.username, username)) {
             return;
         }
@@ -1052,7 +1050,6 @@ public abstract class DruidAbstractDataSource extends WrapperAdapter implements 
     }
 
     public void setPassword(String password) {
-    	LOG.info("设置密码:" + password);
     	
         if (StringUtils.equals(this.password, password)) {
             return;
@@ -1106,8 +1103,6 @@ public abstract class DruidAbstractDataSource extends WrapperAdapter implements 
     }
 
     public void setUrl(String jdbcUrl) {
-    	
-        LOG.info("初始化数据源" + jdbcUrl);
         
         if (StringUtils.equals(this.jdbcUrl, jdbcUrl)) {
             return;

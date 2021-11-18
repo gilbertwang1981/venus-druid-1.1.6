@@ -13,17 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.druid.support.venus.util;
+package com.alibaba.druid.support.venus.exception;
 
-import com.alibaba.druid.support.venus.consts.VenusDatasourceAndPoolConsts;
-
-public class VenusCommonUtils {
-	public static String getDatasourcAndPoolConfigUrl() {
-		String url = System.getenv(VenusDatasourceAndPoolConsts.VENUS_DATASOURCE_POOL_CONFIG_URL_VAR_NAME);
-		if (url == null) {
-			return VenusDatasourceAndPoolConsts.DEFAULT_VENUS_DATASOURCE_POOL_CONFIG_TEST_URL;
-		} else {
-			return url;
-		}
+@SuppressWarnings("serial")
+public class VenusDatasourceAndPoolConfigNotFoundException extends RuntimeException {
+	public VenusDatasourceAndPoolConfigNotFoundException(String message) {
+		super("[Venus Exception - configuration not found]" + message);
 	}
 }
