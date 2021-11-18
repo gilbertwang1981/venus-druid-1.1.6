@@ -1,3 +1,18 @@
+/*
+ * Copyright 1999-2017 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.alibaba.druid.support.venus.vo;
 
 public class VenusPoolStatVO {
@@ -5,10 +20,10 @@ public class VenusPoolStatVO {
 	private long activePeakTime;
 	private int poolingPeak;
 	private long poolingPeakTime;
-	private int errorCount;
-	private int connectCount;
-	private int closeCount;
-	private int waitThreadCount;
+	private long errorCount;
+	private long connectCount;
+	private long closeCount;
+	private long waitThreadCount;
 	private String instanceKey;
 	private String ip;
 	private int pid;
@@ -37,28 +52,28 @@ public class VenusPoolStatVO {
 	public void setPoolingPeakTime(long poolingPeakTime) {
 		this.poolingPeakTime = poolingPeakTime;
 	}
-	public int getErrorCount() {
+	public long getErrorCount() {
 		return errorCount;
 	}
-	public void setErrorCount(int errorCount) {
+	public void setErrorCount(long errorCount) {
 		this.errorCount = errorCount;
 	}
-	public int getConnectCount() {
+	public long getConnectCount() {
 		return connectCount;
 	}
-	public void setConnectCount(int connectCount) {
+	public void setConnectCount(long connectCount) {
 		this.connectCount = connectCount;
 	}
-	public int getCloseCount() {
+	public long getCloseCount() {
 		return closeCount;
 	}
-	public void setCloseCount(int closeCount) {
+	public void setCloseCount(long closeCount) {
 		this.closeCount = closeCount;
 	}
-	public int getWaitThreadCount() {
+	public long getWaitThreadCount() {
 		return waitThreadCount;
 	}
-	public void setWaitThreadCount(int waitThreadCount) {
+	public void setWaitThreadCount(long waitThreadCount) {
 		this.waitThreadCount = waitThreadCount;
 	}
 	public String getInstanceKey() {

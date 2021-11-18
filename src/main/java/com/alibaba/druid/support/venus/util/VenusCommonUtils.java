@@ -26,4 +26,13 @@ public class VenusCommonUtils {
 			return url;
 		}
 	}
+	
+	public static String getDatasourcAndPoolReportUrl() {
+		String url = System.getenv(VenusDatasourceAndPoolConsts.DEFAULT_VENUS_DATASOURCE_POOL_ST_REPORT_URL_VAR_NAME);
+		if (url == null) {
+			return VenusDatasourceAndPoolConsts.DEFAULT_VENUS_DATASOURCE_POOL_ST_REPORT_TEST_URL;
+		} else {
+			return url;
+		}
+	}
 }

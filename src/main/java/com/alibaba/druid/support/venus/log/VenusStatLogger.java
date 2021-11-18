@@ -21,9 +21,18 @@ import com.alibaba.druid.pool.DruidDataSourceStatLogger;
 import com.alibaba.druid.pool.DruidDataSourceStatValue;
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
+import com.alibaba.druid.support.venus.exception.VenusDatasourceAndPoolReportException;
+import com.alibaba.druid.support.venus.util.VenusAddressConvertor;
+import com.alibaba.druid.support.venus.util.VenusCommonUtils;
+import com.alibaba.druid.support.venus.util.VenusHttpUtils;
+import com.alibaba.druid.support.venus.util.VenusProcessUtils;
+import com.alibaba.druid.support.venus.vo.VenusPoolStatVO;
+import com.google.gson.Gson;
 
 public class VenusStatLogger implements DruidDataSourceStatLogger {
 	private final static Log LOG = LogFactory.getLog(VenusStatLogger.class);
+	
+	private Gson gson = new Gson();
 	
 	private String instanceKey;
 	
@@ -33,7 +42,30 @@ public class VenusStatLogger implements DruidDataSourceStatLogger {
 
 	@Override
 	public void log(DruidDataSourceStatValue statValue) {
-		LOG.info("自定义logger:" + statValue.getMaxActive() + "/" + instanceKey);
+		VenusPoolStatVO report = new VenusPoolStatVO();
+		report.setActivePeak(statValue.getActivePeak());
+		if (statValue.getActivePeakTime() != null) {
+			report.setActivePeakTime(statValue.getActivePeakTime().getTime());
+		}
+		report.setCloseCount(statValue.getCloseCount());
+		report.setConnectCount(statValue.getConnectCount());
+		report.setErrorCount(statValue.getErrorCount());
+		report.setInstanceKey(instanceKey);
+		report.setPoolingPeak(statValue.getPoolingPeak());
+		if (statValue.getPoolingPeakTime() != null) {
+			report.setPoolingPeakTime(statValue.getPoolingPeakTime().getTime());
+		}
+		report.setWaitThreadCount(statValue.getWaitThreadCount());
+		report.setIp(VenusAddressConvertor.getLocalIPList().get(0));
+		report.setPid(VenusProcessUtils.getPid());
+		
+		String reportBody = gson.toJson(report);
+		
+		LOG.info("心跳上报:" + reportBody);
+		
+		if (null == VenusHttpUtils.sendHttpPost(VenusCommonUtils.getDatasourcAndPoolReportUrl() , reportBody)) {
+			throw new VenusDatasourceAndPoolReportException();
+		}
 	}
 
 	@Override
