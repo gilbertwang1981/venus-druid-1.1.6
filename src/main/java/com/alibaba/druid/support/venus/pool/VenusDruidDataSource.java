@@ -20,6 +20,7 @@ import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
 import com.alibaba.druid.support.venus.config.VenusDatasourceAndPoolConfiguration;
 import com.alibaba.druid.support.venus.exception.VenusDatasourceAndPoolConfigNotFoundException;
+import com.alibaba.druid.support.venus.log.VenusStatLogger;
 import com.alibaba.druid.support.venus.util.VenusCommonUtils;
 import com.alibaba.druid.support.venus.util.VenusHttpUtils;
 import com.google.gson.Gson;
@@ -72,5 +73,7 @@ public class VenusDruidDataSource extends DruidDataSource {
 		this.setConnectionErrorRetryAttempts(config.getConnectionErrorRetryAttempts());
 		this.setKeepAlive(config.getKeepalive());
 		this.setMaxPoolPreparedStatementPerConnectionSize(config.getMaxPoolPreparedStatementPerConnectionSize());
+		this.setStatLogger(new VenusStatLogger());
+		this.setTimeBetweenLogStatsMillis(5000L);
 	}
 }
