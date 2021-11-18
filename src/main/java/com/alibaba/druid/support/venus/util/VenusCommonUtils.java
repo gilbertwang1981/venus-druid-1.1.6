@@ -35,4 +35,14 @@ public class VenusCommonUtils {
 			return url;
 		}
 	}
+	
+	
+	public static String getSlowSqlReportUrl() {
+		String url = System.getenv(VenusDatasourceAndPoolConsts.DEFAULT_VENUS_DATASOURCE_POOL_SLOW_SQL_URL_VAR_NAME);
+		if (url == null) {
+			return VenusDatasourceAndPoolConsts.DEFAULT_VENUS_DATASOURCE_POOL_SLOW_SQL_TEST_URL;
+		} else {
+			return url;
+		}
+	}
 }

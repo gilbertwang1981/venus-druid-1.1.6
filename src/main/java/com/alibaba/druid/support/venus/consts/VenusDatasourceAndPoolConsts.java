@@ -20,9 +20,12 @@ public interface VenusDatasourceAndPoolConsts {
 	public static final String VENUS_DATASOURCE_POOL_CONFIG_URL_VAR_NAME = "VENUS_DATASOURCE_POOL_CONFIG_URL";
 	
 	public static final String DEFAULT_VENUS_DATASOURCE_POOL_ST_REPORT_TEST_URL = "http://test-mw-governance-service.int.chuxingyouhui.com/config/db/report";
-	public static final String DEFAULT_VENUS_DATASOURCE_POOL_ST_REPORT_URL_VAR_NAME = "DEFAULT_VENUS_DATASOURCE_POOL_ST_REPORT_URL";
+	public static final String DEFAULT_VENUS_DATASOURCE_POOL_ST_REPORT_URL_VAR_NAME = "VENUS_DATASOURCE_POOL_ST_REPORT_URL";
 	
 	public static final Long DEFAULT_STAT_DATA_REPORT_INTERVAL = 15000L;
 	
 	public static final Long DEFAULT_SLOW_SQL_DURATION = 10L;
+	
+	public static final String DEFAULT_VENUS_DATASOURCE_POOL_SLOW_SQL_TEST_URL = "http://test-mw-governance-service.int.chuxingyouhui.com/config/db/addSlowSql";
+	public static final String DEFAULT_VENUS_DATASOURCE_POOL_SLOW_SQL_URL_VAR_NAME = "VENUS_DATASOURCE_POOL_SLOW_SQL_URL";
 }

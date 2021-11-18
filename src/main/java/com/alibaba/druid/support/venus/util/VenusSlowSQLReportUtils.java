@@ -17,11 +17,25 @@ package com.alibaba.druid.support.venus.util;
 
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
+import com.alibaba.druid.support.venus.vo.VenusSlowSqlStatVO;
+import com.google.gson.Gson;
 
 public class VenusSlowSQLReportUtils {
 	private final static Log LOG = LogFactory.getLog(VenusSlowSQLReportUtils.class);
+	
+	private static Gson gson = new Gson();
 			 
 	public static void reportSlowSql(String sql , long duration) {
-		LOG.info("慢查询:" + sql + ":" + duration + ":" + VenusAddressConvertor.getLocalIPList().get(0) + ":" + VenusProcessUtils.getPid());
+		VenusSlowSqlStatVO report = new VenusSlowSqlStatVO();
+		report.setDuration(duration);
+		report.setIp(VenusAddressConvertor.getLocalIPList().get(0));
+		report.setPid(VenusProcessUtils.getPid());
+		report.setSql(sql);
+		
+		String request = gson.toJson(report);
+		
+		LOG.info("慢查询:" + request);
+		
+		VenusHttpUtils.sendHttpPost(VenusCommonUtils.getSlowSqlReportUrl() , request);
 	}
 }
