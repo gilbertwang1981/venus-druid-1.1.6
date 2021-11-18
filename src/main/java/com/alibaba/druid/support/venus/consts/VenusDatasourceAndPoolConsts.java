@@ -18,4 +18,6 @@ package com.alibaba.druid.support.venus.consts;
 public interface VenusDatasourceAndPoolConsts {
 	public static final String DEFAULT_VENUS_DATASOURCE_POOL_CONFIG_TEST_URL = "http://test-mw-governance-service.int.chuxingyouhui.com/config/db";
 	public static final String VENUS_DATASOURCE_POOL_CONFIG_URL_VAR_NAME = "VENUS_DATASOURCE_POOL_CONFIG_URL";
+	
+	public static final Long DEFAULT_STAT_DATA_REPORT_INTERVAL = 15000L;
 }
