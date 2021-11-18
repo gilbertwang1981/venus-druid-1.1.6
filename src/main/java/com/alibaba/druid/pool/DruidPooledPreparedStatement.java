@@ -40,6 +40,8 @@ import java.util.Calendar;
 import com.alibaba.druid.pool.PreparedStatementPool.MethodType;
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
+import com.alibaba.druid.support.venus.consts.VenusDatasourceAndPoolConsts;
+import com.alibaba.druid.support.venus.util.VenusSlowSQLReportUtils;
 import com.alibaba.druid.util.JdbcConstants;
 import com.alibaba.druid.util.OracleUtils;
 
@@ -224,6 +226,7 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
         oracleSetRowPrefetch();
 
         conn.beforeExecute();
+        long begin = System.currentTimeMillis();
         try {
             ResultSet rs = stmt.executeQuery();
 
@@ -241,6 +244,10 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
             throw checkException(t);
         } finally {
             conn.afterExecute();
+            long duration = System.currentTimeMillis() - begin;
+            if (duration >= VenusDatasourceAndPoolConsts.DEFAULT_SLOW_SQL_DURATION) {
+            	VenusSlowSQLReportUtils.reportSlowSql(sql, duration);
+            }
         }
     }
 
@@ -252,6 +259,7 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
         transactionRecord(sql);
 
         conn.beforeExecute();
+        long begin = System.currentTimeMillis();
         try {
             return stmt.executeUpdate();
         } catch (Throwable t) {
@@ -260,6 +268,10 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
             throw checkException(t);
         } finally {
             conn.afterExecute();
+            long duration = System.currentTimeMillis() - begin;
+            if (duration >= VenusDatasourceAndPoolConsts.DEFAULT_SLOW_SQL_DURATION) {
+            	VenusSlowSQLReportUtils.reportSlowSql(sql, duration);
+            }
         }
     }
 
@@ -487,6 +499,8 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
     @Override
     public boolean execute() throws SQLException {
         checkOpen();
+        
+        LOG.info("execute:" + sql);
 
         incrementExecuteCount();
         transactionRecord(sql);
@@ -494,6 +508,9 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
         // oracleSetRowPrefetch();
 
         conn.beforeExecute();
+        
+        long begin = System.currentTimeMillis();
+        
         try {
             return stmt.execute();
         } catch (Throwable t) {
@@ -502,6 +519,11 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
             throw checkException(t);
         } finally {
             conn.afterExecute();
+            
+            long duration = System.currentTimeMillis() - begin;
+            if (duration >= VenusDatasourceAndPoolConsts.DEFAULT_SLOW_SQL_DURATION) {
+            	VenusSlowSQLReportUtils.reportSlowSql(sql, duration);
+            }
         }
     }
 
