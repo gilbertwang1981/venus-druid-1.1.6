@@ -28,5 +28,6 @@ public class VenusDruidDataSource extends DruidDataSource {
 		this.setConnectionProperties("druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500");
 		this.setConnectionErrorRetryAttempts(3);
 		this.setKeepAlive(true);
+		this.setMaxPoolPreparedStatementPerConnectionSize(5);
 	}
 }
