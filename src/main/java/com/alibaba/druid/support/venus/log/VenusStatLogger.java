@@ -24,10 +24,16 @@ import com.alibaba.druid.support.logging.LogFactory;
 
 public class VenusStatLogger implements DruidDataSourceStatLogger {
 	private final static Log LOG = LogFactory.getLog(VenusStatLogger.class);
+	
+	private String instanceKey;
+	
+	public VenusStatLogger(String instanceKey) {
+		this.instanceKey = instanceKey;
+	}
 
 	@Override
 	public void log(DruidDataSourceStatValue statValue) {
-		LOG.info("自定义logger:" + statValue.getMaxActive());
+		LOG.info("自定义logger:" + statValue.getMaxActive() + "/" + instanceKey);
 	}
 
 	@Override

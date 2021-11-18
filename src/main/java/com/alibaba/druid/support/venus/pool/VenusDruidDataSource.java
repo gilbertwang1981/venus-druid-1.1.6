@@ -36,7 +36,7 @@ public class VenusDruidDataSource extends DruidDataSource {
 	public VenusDruidDataSource(String instanceKey) {
 		this(true);
 		
-		copyConfigFromVenus(this.getVenusDatasourceAndPoolConfigurationFromVenus(instanceKey));
+		copyConfigFromVenus(this.getVenusDatasourceAndPoolConfigurationFromVenus(instanceKey) , instanceKey);
 	}
 	
 	private VenusDruidDataSource(boolean lockFair) {
@@ -56,7 +56,7 @@ public class VenusDruidDataSource extends DruidDataSource {
 		return configuration;
 	}
 	
-	private void copyConfigFromVenus(VenusDatasourceAndPoolConfiguration config) {
+	private void copyConfigFromVenus(VenusDatasourceAndPoolConfiguration config , String instanceKey) {
 		this.setUrl(config.getJdbcUrl());
 		this.setUsername(config.getUsername());
 		this.setPassword(config.getPassword());
@@ -74,7 +74,7 @@ public class VenusDruidDataSource extends DruidDataSource {
 		this.setConnectionErrorRetryAttempts(config.getConnectionErrorRetryAttempts());
 		this.setKeepAlive(config.getKeepalive());
 		this.setMaxPoolPreparedStatementPerConnectionSize(config.getMaxPoolPreparedStatementPerConnectionSize());
-		this.setStatLogger(new VenusStatLogger());
+		this.setStatLogger(new VenusStatLogger(instanceKey));
 		this.setTimeBetweenLogStatsMillis(VenusDatasourceAndPoolConsts.DEFAULT_STAT_DATA_REPORT_INTERVAL);
 	}
 }
