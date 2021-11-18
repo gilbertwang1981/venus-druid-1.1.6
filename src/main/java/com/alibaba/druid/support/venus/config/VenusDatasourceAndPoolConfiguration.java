@@ -7,6 +7,7 @@ public class VenusDatasourceAndPoolConfiguration {
 	private Integer initialSize;
 	private Integer minIdle;
 	private Integer maxActive;
+	private Integer maxWait;
 	private Long timeBetweenEvictionRunsMillis;
 	private String validationQuery;
 	private Boolean testWhileIdle;
@@ -113,5 +114,11 @@ public class VenusDatasourceAndPoolConfiguration {
 	}
 	public void setMaxPoolPreparedStatementPerConnectionSize(Integer maxPoolPreparedStatementPerConnectionSize) {
 		this.maxPoolPreparedStatementPerConnectionSize = maxPoolPreparedStatementPerConnectionSize;
+	}
+	public Integer getMaxWait() {
+		return maxWait;
+	}
+	public void setMaxWait(Integer maxWait) {
+		this.maxWait = maxWait;
 	}
 }
