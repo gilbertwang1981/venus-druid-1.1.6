@@ -223,8 +223,6 @@ public class DruidPooledStatement extends PoolableWrapper implements Statement {
     @Override
     public final ResultSet executeQuery(String sql) throws SQLException {
         checkOpen();
-        
-        LOG.info("execute query:" + sql);
 
         incrementExecuteCount();
         transactionRecord(sql);
@@ -258,8 +256,6 @@ public class DruidPooledStatement extends PoolableWrapper implements Statement {
     @Override
     public final int executeUpdate(String sql) throws SQLException {
         checkOpen();
-        
-        LOG.info("execute update:" + sql);
 
         incrementExecuteCount();
         transactionRecord(sql);

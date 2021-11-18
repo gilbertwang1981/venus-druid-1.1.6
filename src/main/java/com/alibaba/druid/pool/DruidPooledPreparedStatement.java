@@ -499,8 +499,6 @@ public class DruidPooledPreparedStatement extends DruidPooledStatement implement
     @Override
     public boolean execute() throws SQLException {
         checkOpen();
-        
-        LOG.info("execute:" + sql);
 
         incrementExecuteCount();
         transactionRecord(sql);
