@@ -18,6 +18,6 @@ package com.alibaba.druid.support.venus.exception;
 @SuppressWarnings("serial")
 public class VenusDatasourceAndPoolReportException extends RuntimeException {
 	public VenusDatasourceAndPoolReportException() {
-		super("HTTP请求失败,上报连接池状态失败");
+		super("[Venus Exception - HTTP request failed]");
 	}
 }
